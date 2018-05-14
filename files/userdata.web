@@ -1,0 +1,18 @@
+#!/bin/bash
+sudo yum update -y
+sudo yum install -y httpd php php-mysqlnd
+sudo echo 'Setenv DB_USER ${dbuser}'  >> /etc/httpd/conf/httpd.conf
+sudo echo 'Setenv DB_NAME ${dbname}' >> /etc/httpd/conf/httpd.conf
+sudo echo 'Setenv DB_PASS ${dbpass}' >> /etc/httpd/conf/httpd.conf
+sudo echo 'Setenv DB_HOST ${dbhost}' >> /etc/httpd/conf/httpd.conf
+sudo echo 'Setenv DB_READ_HOST ${dbreadname}' >> /etc/httpd/conf/httpd.conf
+sudo echo 'Setenv CLOUD_FRONT_DOMAIN ${cloudfront}' >> /etc/httpd/conf/httpd.conf
+
+sudo service httpd start
+sudo chkconfig httpd on
+sudo easy_install awscli
+sudo aws s3 cp s3://${bucket_name}/index.php /var/www/html/
+sudo aws s3 cp s3://${bucket_name}/history.php /var/www/html/
+sudo aws s3 cp s3://terraform-20180507095426216000000001/log.sh ~/
+sudo chmod +x log.sh
+sudo echo "*/1 * * * * /bin/bash /home/ec2-user/log.sh" >> /var/spool/cron/ec2-user
