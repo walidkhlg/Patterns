@@ -13,6 +13,6 @@ sudo chkconfig httpd on
 sudo easy_install awscli
 sudo aws s3 cp s3://${bucket_name}/index.php /var/www/html/
 sudo aws s3 cp s3://${bucket_name}/history.php /var/www/html/
-sudo aws s3 cp s3://terraform-20180507095426216000000001/log.sh ~/
+sudo aws s3 cp s3://${logsbucket}/log.sh ~/
 sudo chmod +x log.sh
-sudo echo "*/1 * * * * /bin/bash /home/ec2-user/log.sh" >> /var/spool/cron/ec2-user
+sudo echo "*/15 * * * * /bin/bash /home/ec2-user/log.sh" >> /var/spool/cron/ec2-user

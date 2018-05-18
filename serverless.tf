@@ -17,7 +17,7 @@ resource "aws_lambda_function" "func1" {
       DB_NAME     = "${var.db_name}"
       DB_USER     = "${var.db_user}"
       DB_PASS     = "${var.db_password}"
-      
+
     }
   }
 }
@@ -159,20 +159,19 @@ resource "aws_api_gateway_model" "model1" {
   schema = <<EOF
   {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "userdata",
-  "type": "object",
-  "properties": {
-
-    "user_ip": {
-      "type": "string"
+  "title": "Userdata response schema",
+   "properties": {
+        "user_ip": {
+            "type": "string"
+        },
+        "user_agent": {
+            "type": "string"
+        },
+        "req_time": {
+            "type": "string"
+        }
     },
-    "user_agent": {
-      "type": "string"
-    },
-    "req_time": {
-      "type": "string"
-    }
-  }
+    "required": ["user_ip", "user_agent","req_time"]
 }
 EOF
 }
@@ -195,32 +194,34 @@ resource "aws_api_gateway_model" "model2" {
 
   schema = <<EOF
   {
-     "$schema":"http://json-schema.org/draft-04/schema#",
-     "title":"userdata_list",
-     "type":"object",
-     "properties":{
-        "usr":{
-           "type":"array",
-           "items":{
-              "type":"object",
-              "properties":{
-                 "id":{
-                    "type":"integer"
-                 },
-                 "user_ip":{
-                    "type":"string"
-                 },
-                 "user_agent":{
-                    "type":"string"
-                 },
-                 "req_time":{
-                    "type":"string"
-                 }
-              }
-           }
-        }
-     }
-  }
+   "$schema":"http://json-schema.org/draft-04/schema#",
+   "title":"userdata_list",
+   "properties":{
+      "usr":{
+         "type":"array",
+         "items":{
+            "type":"object",
+            "properties":{
+               "id":{
+                  "type":"integer"
+               },
+               "user_ip":{
+                  "type":"string"
+               },
+               "user_agent":{
+                  "type":"string"
+               },
+               "req_time":{
+                  "type":"string"
+               }
+
+            }
+         }
+      }
+   },
+  "required": ["user_ip", "user_agent","req_time"]
+}
+
 EOF
 }
 

@@ -7,7 +7,6 @@ provider "aws" {
 
 resource "aws_rds_cluster" "db-cluster" {
   cluster_identifier = "web-db-walid"
-
   database_name          = "${var.db_name}"
   master_username        = "${var.db_user}"
   master_password        = "${var.db_password}"
@@ -122,5 +121,5 @@ output "elb-address" {
   value = "${aws_elb.web-elb.dns_name}"
 }
 output "cloudfront"{
- value ="${aws_cloudfront_distribution.walid-web.domain_name}"  
+ value ="${aws_cloudfront_distribution.walid-web.domain_name}"
 }

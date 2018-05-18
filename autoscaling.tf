@@ -10,6 +10,7 @@ data "template_file" "userdata" {
     dbname      = "${var.db_name}"
     dbreadname  = "${aws_rds_cluster.db-cluster.reader_endpoint}"
     cloudfront  = "${aws_cloudfront_distribution.walid-web.domain_name}"
+    logsbucket  = "${aws_s3_bucket.logsbuckt.name}"
   }
 }
 
@@ -106,8 +107,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu-alarm-scaledown" {
 }
 
 ############"IAM ROLE ##################""
-resource "aws_iam_role" "ec2_s3_ro" {
-  name = "ec2_s3_ro"
+resource "aws_iam_role" "ec2_s3" {
+  name = "ec2_s3_walid"
 
   assume_role_policy = <<EOF
 {
@@ -128,7 +129,7 @@ EOF
 
 resource "aws_iam_role_policy" "iam_policy" {
   name = "s3ro"
-  role = "${aws_iam_role.ec2_s3_ro.id}"
+  role = "${aws_iam_role.ec2_s3.id}"
 
   policy = <<EOF
 {
@@ -158,14 +159,13 @@ EOF
 
 resource "aws_iam_instance_profile" "web_s3_profile" {
   name = "web_s3_profile"
-  role = "${aws_iam_role.ec2_s3_ro.id}"
+  role = "${aws_iam_role.ec2_s3.id}"
 }
 
 ################ logs bucket #############
 
 resource "aws_s3_bucket" "logsbuckt" {
   acl = "private"
-
   tags {
     Name = "logsbucket-walidtf"
   }
