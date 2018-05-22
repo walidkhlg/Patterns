@@ -1,9 +1,9 @@
-#  Local .terraform directories
 **/.terraform/*
 **/Lambda/pymysql/*
 **/Lambda/PyMySQL-0.8.0.dist-info/*
 **/Lambda/pymysql/*
 **/Lambda/test_results/*
+**/Lambda/__pycache__/*
 **/pytest_cache/*
 
 *.tfstate

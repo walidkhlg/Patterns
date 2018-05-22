@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "func1" {
   function_name = "insertuserdata"
-  s3_bucket     = "${var.lambda_s3_bucket}"
-  s3_key        = "${var.lambda_zip_file_name}"
+  filename      = "${var.lambda_zip_file_name}"
+  source_code_hash = "${base64sha256(file("${var.lambda_zip_file_name}"))}"
   handler       = "main.handler"
   runtime       = "${var.lambda_runtime}"
   role          = "${aws_iam_role.lambda_exec.arn}"
@@ -24,8 +24,8 @@ resource "aws_lambda_function" "func1" {
 
 resource "aws_lambda_function" "func2" {
   function_name = "showhistory"
-  s3_bucket     = "${var.lambda_s3_bucket}"
-  s3_key        = "${var.lambda_zip_file_name}"
+  filename      = "${var.lambda_zip_file_name}"
+  source_code_hash = "${base64sha256(file("${var.lambda_zip_file_name}"))}"
   handler       = "main.handler2"
   runtime       = "python3.6"
   role          = "${aws_iam_role.lambda_exec.arn}"

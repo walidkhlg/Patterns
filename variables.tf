@@ -2,9 +2,7 @@ variable "aws_region" {}
 variable "aws_profile" {}
 variable "vpc_cidr" {}
 
-variable "bucket_name" {
-  default = ""
-}
+variable "bucket_name" {}
 
 data "aws_availability_zones" "available" {
 }
