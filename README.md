@@ -1,8 +1,15 @@
 # Project Title
 
-This project contains terraform scripts to launch a stack on AWS for a highly available application . 
+This project contains scripts to launch a stack on AWS for a simple web application . 
 
 ![alt text](files/Pattern.png)
+## Prerequisites
+The lambda functions need to be tested before being deployed.
+you will need to install the packages as described in the **requirements.txt** file
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Download the project , configure Terraform variables (default values are already there).
+Navigate to the project folder and run the deploy script .
+```
+python deploy.py
+```
