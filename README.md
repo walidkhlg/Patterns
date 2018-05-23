@@ -4,8 +4,15 @@ This project contains scripts to launch a stack on AWS for a simple web applicat
 
 ![alt text](files/Pattern.png)
 ## Prerequisites
-The lambda functions need to be tested before being deployed.
-you will need to install the packages as described in the **requirements.txt** file
+Download the project , you will need to install the packages as described in the **requirements.txt** file .
+```
+pip install -r requirements.txt
+```
+Install [Terraform](https://www.terraform.io/downloads.html)
+
+Configure AWS profile (Access key and Secret key)
+
+
 ## Getting Started
 
 Download the project , configure Terraform variables (default values are already there).
