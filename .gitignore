@@ -3,6 +3,7 @@
 **/Lambda/PyMySQL-0.8.0.dist-info/*
 **/Lambda/pymysql/*
 **/Lambda/test_results/*
+**/Lambda/Lambda_packages/*
 **/Lambda/__pycache__/*
 **/.pytest_cache/*
 

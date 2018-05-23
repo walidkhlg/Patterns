@@ -10,13 +10,12 @@ data "template_file" "userdata" {
     dbname      = "${var.db_name}"
     dbreadname  = "${aws_rds_cluster.db-cluster.reader_endpoint}"
     cloudfront  = "${aws_cloudfront_distribution.walid-web.domain_name}"
-    logsbucket  = "${aws_s3_bucket.logsbuckt.name}"
   }
 }
 
 resource "aws_launch_configuration" "web-lc" {
   name_prefix          = "web-lc-"
-  image_id             = "ami-9cbe9be5"
+  image_id             = "${var.launch_ami}"
   instance_type        = "${var.instance_type}"
   security_groups      = ["${aws_security_group.sg-private.id}"]
   iam_instance_profile = "${aws_iam_instance_profile.web_s3_profile.id}"
@@ -146,8 +145,8 @@ resource "aws_iam_role_policy" "iam_policy" {
       "Resource": [
         "arn:aws:s3:::${var.bucket_name}",
         "arn:aws:s3:::${var.bucket_name}/*",
-        "${aws_s3_bucket.logsbuckt.arn}/*",
-        "${aws_s3_bucket.logsbuckt.arn}"
+        "arn:aws:s3:::terraform-20180507095426216000000001/*",
+        "arn:aws:s3:::terraform-20180507095426216000000001"
       ]
     }
   ]
@@ -160,13 +159,4 @@ EOF
 resource "aws_iam_instance_profile" "web_s3_profile" {
   name = "web_s3_profile"
   role = "${aws_iam_role.ec2_s3.id}"
-}
-
-################ logs bucket #############
-
-resource "aws_s3_bucket" "logsbuckt" {
-  acl = "private"
-  tags {
-    Name = "logsbucket-walidtf"
-  }
 }

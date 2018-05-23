@@ -4,8 +4,7 @@ variable "vpc_cidr" {}
 
 variable "bucket_name" {}
 
-data "aws_availability_zones" "available" {
-}
+data "aws_availability_zones" "available" {}
 
 variable "cidrs" {
   type = "map"
@@ -15,6 +14,9 @@ variable "lambda_runtime" {}
 
 variable "instance_type" {}
 
+variable "launch_ami" {
+  default = "ami-9cbe9be5"
+}
 variable "asg_max" {}
 variable "asg_min" {}
 variable "asg_capacity" {}
@@ -29,7 +31,6 @@ variable "db_user" {}
 variable "db_instance_class" {}
 variable "db_password" {}
 data "aws_caller_identity" "current" {}
-variable "lambda_s3_bucket" {}
 variable "lambda_zip_file_name" {}
 
 variable "rest_api_name" {

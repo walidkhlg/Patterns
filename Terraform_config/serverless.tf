@@ -1,10 +1,10 @@
 resource "aws_lambda_function" "func1" {
-  function_name = "insertuserdata"
-  filename      = "${var.lambda_zip_file_name}"
-  source_code_hash = "${base64sha256(file("${var.lambda_zip_file_name}"))}"
-  handler       = "main.handler"
-  runtime       = "${var.lambda_runtime}"
-  role          = "${aws_iam_role.lambda_exec.arn}"
+  function_name    = "insertuserdata"
+  filename         = "../Applications/Lambda_packages/${var.lambda_zip_file_name}"
+  source_code_hash = "${base64sha256(file("../Applications/Lambda_packages/${var.lambda_zip_file_name}"))}"
+  handler          = "main.handler"
+  runtime          = "${var.lambda_runtime}"
+  role             = "${aws_iam_role.lambda_exec.arn}"
 
   vpc_config {
     subnet_ids         = ["${aws_subnet.public1_subnet.id}", "${aws_subnet.public2_subnet.id}"]
@@ -13,22 +13,21 @@ resource "aws_lambda_function" "func1" {
 
   environment {
     variables = {
-      DB_HOST     = "${aws_rds_cluster.db-cluster.endpoint}"
-      DB_NAME     = "${var.db_name}"
-      DB_USER     = "${var.db_user}"
-      DB_PASS     = "${var.db_password}"
-
+      DB_HOST = "${aws_rds_cluster.db-cluster.endpoint}"
+      DB_NAME = "${var.db_name}"
+      DB_USER = "${var.db_user}"
+      DB_PASS = "${var.db_password}"
     }
   }
 }
 
 resource "aws_lambda_function" "func2" {
-  function_name = "showhistory"
-  filename      = "${var.lambda_zip_file_name}"
-  source_code_hash = "${base64sha256(file("${var.lambda_zip_file_name}"))}"
-  handler       = "main.handler2"
-  runtime       = "python3.6"
-  role          = "${aws_iam_role.lambda_exec.arn}"
+  function_name    = "showhistory"
+  filename         = "../Applications/Lambda_packages/${var.lambda_zip_file_name}"
+  source_code_hash = "${base64sha256(file("../Applications/Lambda_packages/${var.lambda_zip_file_name}"))}"
+  handler          = "main.handler2"
+  runtime          = "python3.6"
+  role             = "${aws_iam_role.lambda_exec.arn}"
 
   vpc_config {
     subnet_ids         = ["${aws_subnet.public1_subnet.id}", "${aws_subnet.public2_subnet.id}"]
@@ -214,14 +213,12 @@ resource "aws_api_gateway_model" "model2" {
                "req_time":{
                   "type":"string"
                }
-
             }
          }
       }
    },
   "required": ["user_ip", "user_agent","req_time"]
 }
-
 EOF
 }
 
