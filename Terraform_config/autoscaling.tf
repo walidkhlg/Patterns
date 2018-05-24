@@ -127,7 +127,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "iam_policy" {
-  name = "s3ro"
+  name = "s3_web"
   role = "${aws_iam_role.ec2_s3.id}"
 
   policy = <<EOF
