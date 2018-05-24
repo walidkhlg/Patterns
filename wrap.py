@@ -36,6 +36,9 @@ if (check_tests()):
     print("***********Tests passed , Zipping lambda function***********")
     lambdazip()
     os.chdir("Terraform_config")
+    if not os.path.isdir("Terraform_config\.terraform"):
+        subprocess.call(["terraform","init"])
+
     subprocess.call(["terraform","plan","-var","lambda_zip_file_name=lambda_package.zip"])
     subprocess.call(["terraform","apply","-var","lambda_zip_file_name=lambda_package.zip","-auto-approve"])
 
