@@ -6,7 +6,7 @@ tags {
 }
 
 data "template_file" "rendered_log_script" {
-  template = "${file("./files/log.sh")}"
+  template = "${file("files/log.sh")}"
   vars {
     logs_bucket = "${aws_s3_bucket.logs_bucket.id}"
   }
@@ -14,6 +14,6 @@ data "template_file" "rendered_log_script" {
 resource "aws_s3_bucket_object" "logs_script" {
   bucket = "${aws_s3_bucket.logs_bucket.id}"
   key    = "log.sh"
-  source = "${data.template_file.rendered_log_script.rendered}"
+  content = "${data.template_file.rendered_log_script.rendered}"
   etag   = "${md5(file("./files/log.sh"))}"
 }
