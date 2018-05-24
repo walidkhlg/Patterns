@@ -17,6 +17,7 @@ variable "instance_type" {}
 variable "launch_ami" {
   default = "ami-9cbe9be5"
 }
+
 variable "asg_max" {}
 variable "asg_min" {}
 variable "asg_capacity" {}

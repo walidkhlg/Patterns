@@ -6,11 +6,12 @@ provider "aws" {
 ############# RDS ##############
 
 resource "aws_rds_cluster" "db-cluster" {
-  cluster_identifier     = "web-db-walid"
-  database_name          = "${var.db_name}"
-  master_username        = "${var.db_user}"
-  master_password        = "${var.db_password}"
-  db_subnet_group_name   = "${aws_db_subnet_group.rds_subnetgroup.name}"
+  cluster_identifier   = "web-db-walid"
+  database_name        = "${var.db_name}"
+  master_username      = "${var.db_user}"
+  master_password      = "${var.db_password}"
+  db_subnet_group_name = "${aws_db_subnet_group.rds_subnetgroup.name}"
+
   #availability_zones     = ["${data.aws_availability_zones.available.names[0]}", "${data.aws_availability_zones.available.names[1]}","${data.aws_availability_zones.available.names[2]}"]
   skip_final_snapshot    = true
   vpc_security_group_ids = ["${aws_security_group.rds-sg.id}"]
